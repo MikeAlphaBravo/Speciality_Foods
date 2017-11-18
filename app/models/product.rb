@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   has_many :reviews
   validates :name, :cost, :origin, :presence => true
 
+  scope :origin, -> (origin_parameter) { where(origin: origin_parameter) }
   # scope :status, -> (status) { where status: status }
   # scope :location, -> (name) { where("name like ?", "#{name}%")}
   scope :index, -> (page) { order("name ASC").paginate(:page => page, :per_page => 10) }
