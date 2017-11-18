@@ -1,11 +1,15 @@
 Product.destroy_all
-
-50.times do |index|
-  Product.create(
-    name: (Faker::Food.ingredient).downcase!,
+created_products = 0
+while created_products < 50
+  product = Product.new(
+    name: Faker::Food.ingredient.downcase,
     cost: Faker::Number.decimal(3, 2),
-    origin: (Faker::Address.country).downcase!
+    origin: Faker::Address.country.downcase
     )
+    created_products += 1 if product.save
+    # else
+    #   puts "this errored on save #{product.inspect}"
+    # end
 end
 
 p "You now have #{Product.count} products in your db"
@@ -13,10 +17,11 @@ p "You now have #{Product.count} products in your db"
 Review.destroy_all
 
 250.times do |index|
-  Review.create(
-    author: (Faker::Name.name).downcase!,
+  random_product = Product.all.sample
+  random_product.reviews.create(
+    author: Faker::Name.name.downcase,
     content: Faker::Lorem.paragraph(3),
-    rating: Faker::Number.(1)
+    rating: Faker::Number.number(1)
     )
 end
 
