@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-4">
+    <% if object.errors.any? %>
+      <h3>Please fix these errors:</h3>
+      <ul class="list-group">
+        <% object.errors.full_messages.each do |message| %>
+          <li class="list-group-item"><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

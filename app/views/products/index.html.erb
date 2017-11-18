@@ -1,0 +1,25 @@
+<h1>Here are the products currently submitted</h1>
+
+<div class="dropdown">
+  Filter By:
+  <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Product Origin
+  </button><br><br>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="/products">All</a>
+    <a class="dropdown-item" href="?origin=usa">USA</a>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-9">
+    <div class="apple_pagination">
+      <div class="row justify-content-center">
+        <%= will_paginate @products %>
+      </div>
+    </div>
+    <ul class="list-group">
+      <% @products.each do |product| %>
+        <li class="list-group-item"><%= link_to product.origin.split.map(&:capitalize).join(' '), product_path(product) %></li>
+      <% end %>
+    </ul>
+  </div>

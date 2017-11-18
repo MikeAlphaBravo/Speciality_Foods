@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TestProject</title>
+    <title>Mario's Speciality Food Products</title>
     <%= csrf_meta_tags %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+      <a class="navbar-brand" href="/">Mario's</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <%= link_to "Products", products_path, :class => "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Submit a Product", new_product_path, :class => "nav-link" %>
+          </li>
+        </ul>
+        <%= form_tag(products_path, :method => "get", :class => "form-inline") do %>
+          <%= text_field_tag :search, params[:search], :placeholder => "Search", :class => "form-control mr-sm-2"%>
+          <%= submit_tag "Search", :name => nil, :class => "btn btn-primary" %>
+        <% end %>
+      </div>
+    </nav>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
