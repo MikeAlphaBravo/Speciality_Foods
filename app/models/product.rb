@@ -2,7 +2,7 @@ class Product < ApplicationRecord
   has_many :reviews
   validates :name, :cost, :origin, :presence => true
 
-  scope :origin, -> (origin_parameter) { where(origin: origin_parameter) }
+  scope :by_origin, -> (origin_parameter) { where(origin: origin_parameter) }
   scope :recent, -> { order("created_at DESC").limit(3) }
   # scope :status, -> (status) { where status: status }
   # scope :location, -> (name) { where("name like ?", "#{name}%")}
@@ -15,7 +15,7 @@ class Product < ApplicationRecord
     .joins(:reviews)
     .group("products.id")
     .order("reviews_count DESC")
-    .limit(1)
+    .limit(1).first
   )}
 
   before_save :downcase_fields

@@ -1,9 +1,11 @@
 class ProductsController < ApplicationController
   def index
+    @product_recent = Product.recent
+    @product_most_reviews = Product.most_reviews
     @products = Product.index(params[:page])
-    # @products = Product.all.order("name ASC")
     @products = @products.only_names(params[:name]) if params[:name].present?
     @products = @products.search(params[:search]) if params[:search].present?
+    @products = @products.by_origin(params[:origin]) if params[:origin].present?
   end
 
   def show
